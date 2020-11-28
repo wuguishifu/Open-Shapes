@@ -75,6 +75,41 @@ public class Vector3f {
     }
 
     /**
+     * takes the cross product of two vectors
+     * @param v - vector 1
+     * @param u - vector 2
+     * @return - the cross product of v and u (v x u)
+     */
+    public static Vector3f cross(Vector3f v, Vector3f u) {
+        float x = v.y * u.z - v.z * u.y;
+        float y = v.x * u.z - v.z * u.x;
+        float z = v.x * u.y - v.y * u.x;
+        return new Vector3f(x, y, z);
+    }
+
+    /**
+     * takes the scalar product of two vectors
+     * @param v - vector 1
+     * @param u - vector 2
+     * @return - the dot product of v and u (v dot u)
+     */
+    public static float dot(Vector3f v, Vector3f u) {
+        return v.x * u.x + v.y * u.y + v.z * u.z;
+    }
+
+    /**
+     * scales a vector
+     * @param n - the scale factor
+     * @return - this vector
+     */
+    public Vector3f scale(float n) {
+        this.x *= n;
+        this.y *= n;
+        this.z *= n;
+        return this;
+    }
+
+    /**
      * normalizes a vector to a length of 1
      * @return - this vector
      */
