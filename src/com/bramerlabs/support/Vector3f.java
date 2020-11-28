@@ -7,6 +7,16 @@ public class Vector3f {
 
     /**
      * default constructor
+     * position will be set to (0, 0, 0)
+     */
+    public Vector3f() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
+    /**
+     * constructor for 3 position values
      * @param x - x position
      * @param y - y position
      * @param z - z position
