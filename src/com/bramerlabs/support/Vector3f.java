@@ -131,7 +131,23 @@ public class Vector3f {
         float v = length/r;
         this.x /= v;
         this.y /= v;
-        this.z /= z;
+        this.z /= v;
         return this;
+    }
+
+    /**
+     * converts this Vector3f into an array of floats
+     * @return - float array
+     */
+    public float[] toFloats() {
+        return new float[]{this.x, this.y, this.z};
+    }
+
+    /**
+     * generates a string based off of the x, y, z position of this vector
+     * @return - the string
+     */
+    public String toString() {
+        return "<" + x + ", " + y + ", " + z + ">";
     }
 }
