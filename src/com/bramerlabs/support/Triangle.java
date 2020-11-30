@@ -33,7 +33,7 @@ public class Triangle {
         this.v1 = new Vector3f(v1);
         this.v2 = new Vector3f(v2);
         this.v3 = new Vector3f(v3);
-        this.color = new Vector3f(color);
+        this.color = new Vector3f(color).scale((float)1/255);
     }
 
     /**
@@ -100,4 +100,11 @@ public class Triangle {
         return new float[]{this.v3.x, this.v3.y, this.v3.z};
     }
 
+    /**
+     * generates a string
+     * @return - the position of each vertex of this triangle
+     */
+    public String toString() {
+        return "(" + v1.x + ", " + v1.y + ", " + v1.z + "); (" + v2.x + ", " + v2.y + ", " + v2.z + "); (" + v3.x + ", " + v3.y + ", " + v3.z + ")";
+    }
 }

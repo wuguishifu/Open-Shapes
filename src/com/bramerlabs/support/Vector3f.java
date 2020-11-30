@@ -7,6 +7,16 @@ public class Vector3f {
 
     /**
      * default constructor
+     * position will be set to (0, 0, 0)
+     */
+    public Vector3f() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
+    /**
+     * constructor for 3 position values
      * @param x - x position
      * @param y - y position
      * @param z - z position
@@ -65,6 +75,41 @@ public class Vector3f {
     }
 
     /**
+     * takes the cross product of two vectors
+     * @param v - vector 1
+     * @param u - vector 2
+     * @return - the cross product of v and u (v x u)
+     */
+    public static Vector3f cross(Vector3f v, Vector3f u) {
+        float x = v.y * u.z - v.z * u.y;
+        float y = v.x * u.z - v.z * u.x;
+        float z = v.x * u.y - v.y * u.x;
+        return new Vector3f(x, y, z);
+    }
+
+    /**
+     * takes the scalar product of two vectors
+     * @param v - vector 1
+     * @param u - vector 2
+     * @return - the dot product of v and u (v dot u)
+     */
+    public static float dot(Vector3f v, Vector3f u) {
+        return v.x * u.x + v.y * u.y + v.z * u.z;
+    }
+
+    /**
+     * scales a vector
+     * @param n - the scale factor
+     * @return - this vector
+     */
+    public Vector3f scale(float n) {
+        this.x *= n;
+        this.y *= n;
+        this.z *= n;
+        return this;
+    }
+
+    /**
      * normalizes a vector to a length of 1
      * @return - this vector
      */
@@ -86,7 +131,23 @@ public class Vector3f {
         float v = length/r;
         this.x /= v;
         this.y /= v;
-        this.z /= z;
+        this.z /= v;
         return this;
+    }
+
+    /**
+     * converts this Vector3f into an array of floats
+     * @return - float array
+     */
+    public float[] toFloats() {
+        return new float[]{this.x, this.y, this.z};
+    }
+
+    /**
+     * generates a string based off of the x, y, z position of this vector
+     * @return - the string
+     */
+    public String toString() {
+        return "<" + x + ", " + y + ", " + z + ">";
     }
 }
