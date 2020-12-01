@@ -1,6 +1,6 @@
 package com.bramerlabs.shapes3d;
 
-import com.bramerlabs.support.Triangle;
+import com.bramerlabs.shapes2d.Triangle;
 import com.bramerlabs.support.Vector3f;
 
 import java.awt.*;

@@ -1,4 +1,6 @@
-package com.bramerlabs.support;
+package com.bramerlabs.shapes2d;
+
+import com.bramerlabs.support.Vector3f;
 
 public class Triangle {
 
