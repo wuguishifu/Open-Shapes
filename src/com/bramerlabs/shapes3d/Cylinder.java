@@ -75,7 +75,7 @@ public class Cylinder {
             this.faces.add(new Triangle(v2.get(i), v1.get(i+1), v2.get(i+1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
         }
         this.faces.add(new Triangle(v1.get(smoothness), v2.get(smoothness), v1.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
-        this.faces.add(new Triangle(v1.get(smoothness), v2.get(1), v1.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
+        this.faces.add(new Triangle(v2.get(smoothness), v1.get(1), v2.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
     }
 
     /**
