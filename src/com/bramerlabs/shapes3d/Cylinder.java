@@ -83,7 +83,6 @@ public class Cylinder {
      */
     private void generateCircles() {
         Vector3f normal = new Vector3f(p1).subtract(p2);
-        normal = new Vector3f(normal.x, -normal.y, normal.z);
         c1 = new Circle(p1, radius, normal, color, smoothness);
         c2 = new Circle(p2, radius, normal, color, smoothness);
     }
