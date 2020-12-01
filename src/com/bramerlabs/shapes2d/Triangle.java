@@ -75,7 +75,7 @@ public class Triangle {
      * @return - the second vertex of this triangle in the form of a bramerlabs Vector3f
      */
     public Vector3f getV2() {
-        return this.v1;
+        return this.v2;
     }
 
     /**
