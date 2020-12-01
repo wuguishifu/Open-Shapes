@@ -22,7 +22,7 @@ public class Circle {
     private Color color;
 
     // the number of triangles used to make this circle - default 20
-    private int numTriangles = 20;
+    private int numTriangles = 120;
 
     // ArrayList of triangles in the mesh of this circle
     private ArrayList<Triangle> faces = new ArrayList<>();
@@ -89,9 +89,9 @@ public class Circle {
 
         // generate two orthogonal vectors, v1 and v2, on the plane described by the normal vector
         // take some random vector v0 non-parallel to the normal vector
-        Vector3f v0 = new Vector3f(0, 0, 1f);
+        Vector3f v0 = new Vector3f(normal.y, normal.z, normal.x);
         if (Vector3f.cross(normal, v0).equals(new Vector3f(0, 0, 0), 0.00001f)) {
-            v0 = new Vector3f(1f, 0, 0);
+            v0 = new Vector3f(normal.z, normal.x, normal.y);
         }
 
         Vector3f v1 = Vector3f.cross(normal, v0);
@@ -106,10 +106,10 @@ public class Circle {
         // r(t) = c + r*cos(t)*i + r*sin(t)*j, where i, j are v1, v2 and r is radius
         // r(t) for 0 <= t <= 2pi
         for (int i = 0; i < numTriangles; i++) {
-            Vector3f v = new Vector3f(position);
-            v.add((new Vector3f(v1)).scale((float) (radius * Math.cos(i * dt))));
+            Vector3f v = (new Vector3f(v1)).scale((float) (radius * Math.cos(i * dt)));
             v.add((new Vector3f(v2)).scale((float) (radius * Math.sin(i * dt))));
             v.normalize(radius);
+            v.add(position);
             vertices.add(v);
         }
 
