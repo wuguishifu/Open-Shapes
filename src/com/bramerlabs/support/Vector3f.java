@@ -96,7 +96,7 @@ public class Vector3f {
      */
     public static Vector3f cross(Vector3f v, Vector3f u) {
         float x = v.y * u.z - v.z * u.y;
-        float y = v.x * u.z - v.z * u.x;
+        float y = v.z * u.x - v.x * u.z;
         float z = v.x * u.y - v.y * u.x;
         return new Vector3f(x, y, z);
     }
@@ -146,6 +146,30 @@ public class Vector3f {
         this.x /= v;
         this.y /= v;
         this.z /= v;
+        return this;
+    }
+
+    /**
+     * inverts the x value
+     */
+    public Vector3f invertX() {
+        this.x = -this.x;
+        return this;
+    }
+
+    /**
+     * inverts the y value
+     */
+    public Vector3f invertY() {
+        this.y = -this.y;
+        return this;
+    }
+
+    /**
+     * inverts the z value
+     */
+    public Vector3f invertZ() {
+        this.z = -this.z;
         return this;
     }
 

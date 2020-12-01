@@ -75,7 +75,7 @@ public class Cylinder {
             this.faces.add(new Triangle(v2.get(i), v1.get(i+1), v2.get(i+1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
         }
         this.faces.add(new Triangle(v1.get(smoothness), v2.get(smoothness), v1.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
-        this.faces.add(new Triangle(v1.get(smoothness), v2.get(1), v1.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
+        this.faces.add(new Triangle(v2.get(smoothness), v1.get(1), v2.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
     }
 
     /**
@@ -83,7 +83,6 @@ public class Cylinder {
      */
     private void generateCircles() {
         Vector3f normal = new Vector3f(p1).subtract(p2);
-        normal = new Vector3f(normal.x, -normal.y, normal.z);
         c1 = new Circle(p1, radius, normal, color, smoothness);
         c2 = new Circle(p2, radius, normal, color, smoothness);
     }
