@@ -64,6 +64,18 @@ public class Vector3f {
     }
 
     /**
+     * subtracts two vectors
+     * @param v - the vector to be subtracted
+     * @return - this vector
+     */
+    public Vector3f subtract(Vector3f v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        this.z -= v.z;
+        return this;
+    }
+
+    /**
      * adds a float array to a vector
      * @param val - a float array containing values to be added
      * method will automatically add based off of the amount of values in the array

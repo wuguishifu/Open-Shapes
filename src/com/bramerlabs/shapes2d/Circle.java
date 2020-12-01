@@ -27,6 +27,9 @@ public class Circle {
     // ArrayList of triangles in the mesh of this circle
     private ArrayList<Triangle> faces = new ArrayList<>();
 
+    // ArrayList of vertices
+    private ArrayList<Vector3f> vertices = new ArrayList<>();
+
     // golden ratio
     private static final float phi = 1.6180339f;
 
@@ -64,7 +67,7 @@ public class Circle {
      */
     private void generateTriangles() {
         // generate the vertices
-        ArrayList<Vector3f> vertices = generateVertices();
+        vertices = generateVertices();
 
         // convert the color to a bramerlabs Vector3f
         Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
@@ -89,9 +92,9 @@ public class Circle {
 
         // generate two orthogonal vectors, v1 and v2, on the plane described by the normal vector
         // take some random vector v0 non-parallel to the normal vector
-        Vector3f v0 = new Vector3f(normal.y, normal.z, normal.x);
+        Vector3f v0 = new Vector3f(1, 0, 1);
         if (Vector3f.cross(normal, v0).equals(new Vector3f(0, 0, 0), 0.00001f)) {
-            v0 = new Vector3f(normal.z, normal.x, normal.y);
+            v0 = new Vector3f(0, 1, 1);
         }
 
         Vector3f v1 = Vector3f.cross(normal, v0);
@@ -118,10 +121,18 @@ public class Circle {
 
     /**
      * getter method
-     * @return - the ArrayList of triangles
+     * @return - the ArrayList of triangles making up the mesh of this circle
      */
     public ArrayList<Triangle> getFaces() {
         return this.faces;
+    }
+
+    /**
+     * getter method
+     * @return - the ArrayList of vertices in this circle
+     */
+    public ArrayList<Vector3f> getVertices() {
+        return this.vertices;
     }
 
     /**

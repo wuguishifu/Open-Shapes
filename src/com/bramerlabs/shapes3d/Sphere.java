@@ -55,7 +55,7 @@ public class Sphere {
     }
 
     /**
-     * generates a list of
+     * generates a list of triangles making up the mesh of this sphere
      */
     private void generateTriangles() {
         Vector3f[] vertices = generateVertices();
