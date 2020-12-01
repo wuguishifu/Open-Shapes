@@ -31,6 +31,7 @@ public class Sphere {
      * constructor for specified position and color with radius 1
      * @param position - the position of the focus of this sphere
      * @param color - the color of this sphere
+     *
      */
     public Sphere(Vector3f position, Color color) {
         this.position = position;
