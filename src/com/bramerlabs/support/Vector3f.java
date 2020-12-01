@@ -1,5 +1,7 @@
 package com.bramerlabs.support;
 
+import java.util.Objects;
+
 public class Vector3f {
 
     // x, y, z position
@@ -133,6 +135,46 @@ public class Vector3f {
         this.y /= v;
         this.z /= v;
         return this;
+    }
+
+    /**
+     * checks if two vectors are approximately equal
+     * @param o - other vector
+     * @param e - epsilon value
+     * @return - true if the vectors are approximately equal
+     */
+    public boolean equals(Object o, float e) {
+        if (this == o) return true;
+        if (!(o instanceof Vector3f)) return false;
+        Vector3f u = (Vector3f) o;
+        return
+                this.x - u.x < e &&
+                this.y - u.y < e &&
+                this.z - u.z < e;
+    }
+
+    /**
+     * checks if two vectors are exactly equal
+     * @param o - the other object
+     * @return - true if the vectors are exactly equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vector3f)) return false;
+        Vector3f vector3f = (Vector3f) o;
+        return Float.compare(vector3f.x, x) == 0 &&
+                Float.compare(vector3f.y, y) == 0 &&
+                Float.compare(vector3f.z, z) == 0;
+    }
+
+    /**
+     * generates a hashcode for this vector
+     * @return the hashcode integer
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z);
     }
 
     /**

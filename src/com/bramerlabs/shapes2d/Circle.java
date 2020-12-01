@@ -88,8 +88,12 @@ public class Circle {
         vertices.add(position);
 
         // generate two orthogonal vectors, v1 and v2, on the plane described by the normal vector
-        // take some vector v0 non-parallel to the normal vector
-        Vector3f v0 = new Vector3f(normal.x, normal.y, normal.z + 1f);
+        // take some random vector v0 non-parallel to the normal vector
+        Vector3f v0 = new Vector3f(0, 0, 1f);
+        if (Vector3f.cross(normal, v0).equals(new Vector3f(0, 0, 0), 0.00001f)) {
+            v0 = new Vector3f(1f, 0, 0);
+        }
+
         Vector3f v1 = Vector3f.cross(normal, v0);
         Vector3f v2 = Vector3f.cross(normal, v1);
         v1.normalize(radius);
