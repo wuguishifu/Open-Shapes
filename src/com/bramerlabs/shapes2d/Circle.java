@@ -1,7 +1,7 @@
 package com.bramerlabs.shapes2d;
 
 
-import com.bramerlabs.support.Triangle;
+import com.bramerlabs.shapes2d.Triangle;
 import com.bramerlabs.support.Vector3f;
 
 import java.awt.*;
@@ -22,10 +22,13 @@ public class Circle {
     private Color color;
 
     // the number of triangles used to make this circle - default 20
-    private int numTriangles = 20;
+    private int numTriangles = 120;
 
     // ArrayList of triangles in the mesh of this circle
     private ArrayList<Triangle> faces = new ArrayList<>();
+
+    // ArrayList of vertices
+    private ArrayList<Vector3f> vertices = new ArrayList<>();
 
     // golden ratio
     private static final float phi = 1.6180339f;
@@ -48,7 +51,7 @@ public class Circle {
      * @param radius - the radius of the circle
      * @param normal - a vector normal to the circle
      * @param color - the color of this circle
-     * @param numTriangles - the amount of triangles used to approximate this circle
+     * @param numTriangles - the amount of times to recursively subdivide faces for smoothing
      */
     public Circle(Vector3f position, float radius, Vector3f normal, Color color, int numTriangles) {
         this.position = position;
@@ -64,13 +67,13 @@ public class Circle {
      */
     private void generateTriangles() {
         // generate the vertices
-        ArrayList<Vector3f> vertices = generateVertices();
+        vertices = generateVertices();
 
         // convert the color to a bramerlabs Vector3f
         Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
 
         // create numTriangles-1 bramerlabs triangles using consecutive radial vertices
-        for (int i = 1; i < numTriangles - 1; i++) {
+        for (int i = 1; i < numTriangles; i++) {
             this.faces.add(new Triangle(vertices.get(i), vertices.get(0), vertices.get(i+1), c));
         }
 
@@ -88,11 +91,16 @@ public class Circle {
         vertices.add(position);
 
         // generate two orthogonal vectors, v1 and v2, on the plane described by the normal vector
-        // take some vector v0 non-parallel to the normal vector
-        Vector3f v0 = new Vector3f(normal.x, normal.y, normal.z + 1f);
+        // take some random vector v0 non-parallel to the normal vector
+        Vector3f v0 = new Vector3f(1, 0, 1);
+        if (Vector3f.cross(normal, v0).equals(new Vector3f(0, 0, 0), 0.00001f)) {
+            v0 = new Vector3f(0, 1, 1);
+        }
+
         Vector3f v1 = Vector3f.cross(normal, v0);
         Vector3f v2 = Vector3f.cross(normal, v1);
-
+        v1.normalize(radius);
+        v2.normalize(radius);
 
         // determine the change in t corresponding to the amount of triangles required
         float dt = ((float)Math.PI * 2)/numTriangles;
@@ -101,9 +109,10 @@ public class Circle {
         // r(t) = c + r*cos(t)*i + r*sin(t)*j, where i, j are v1, v2 and r is radius
         // r(t) for 0 <= t <= 2pi
         for (int i = 0; i < numTriangles; i++) {
-            Vector3f v = new Vector3f(position);
-            v.add((new Vector3f(v1)).scale((float) (radius * Math.cos(i * dt))));
+            Vector3f v = (new Vector3f(v1)).scale((float) (radius * Math.cos(i * dt)));
             v.add((new Vector3f(v2)).scale((float) (radius * Math.sin(i * dt))));
+            v.normalize(radius);
+            v.add(position);
             vertices.add(v);
         }
 
@@ -112,9 +121,38 @@ public class Circle {
 
     /**
      * getter method
-     * @return - the ArrayList of triangles
+     * @return - the ArrayList of triangles making up the mesh of this circle
      */
     public ArrayList<Triangle> getFaces() {
         return this.faces;
     }
+
+    /**
+     * getter method
+     * @return - the ArrayList of vertices in this circle
+     */
+    public ArrayList<Vector3f> getVertices() {
+        return this.vertices;
+    }
+
+    /**
+     * getter method
+     * @return - a float array containing every triangle
+     */
+    public float[] getFacesAsFloats() {
+        float[] f = new float[numTriangles*9];
+        for (int i = 0; i < numTriangles; i++) {
+            f[i * 9] = faces.get(i).getV1().toFloats()[0];
+            f[i * 9 + 1] = faces.get(i).getV1().toFloats()[1];
+            f[i * 9 + 2] = faces.get(i).getV1().toFloats()[2];
+            f[i * 9 + 3] = faces.get(i).getV2().toFloats()[0];
+            f[i * 9 + 4] = faces.get(i).getV2().toFloats()[1];
+            f[i * 9 + 5] = faces.get(i).getV2().toFloats()[2];
+            f[i * 9 + 6] = faces.get(i).getV3().toFloats()[0];
+            f[i * 9 + 7] = faces.get(i).getV3().toFloats()[1];
+            f[i * 9 + 8] = faces.get(i).getV3().toFloats()[2];
+        }
+        return f;
+    }
+
 }
