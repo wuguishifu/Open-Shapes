@@ -128,15 +128,10 @@ public class Sphere {
             return;
         }
 
-        // create new vertices for each face
-        Vector3f v12 = new Vector3f(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
-        Vector3f v23 = new Vector3f(v2.x + v3.x, v2.y + v3.y, v2.z + v3.z);
-        Vector3f v31 = new Vector3f(v3.x + v1.x, v3.y + v1.y, v3.z + v1.z);
-
-        // normalize each vertex to retain a certain radius
-        v12.normalize(radius);
-        v23.normalize(radius);
-        v31.normalize(radius);
+        // create new vertices for each face and normalize them to retain spherical radius
+        Vector3f v12 = new Vector3f(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z).normalize(radius);
+        Vector3f v23 = new Vector3f(v2.x + v3.x, v2.y + v3.y, v2.z + v3.z).normalize(radius);
+        Vector3f v31 = new Vector3f(v3.x + v1.x, v3.y + v1.y, v3.z + v1.z).normalize(radius);
 
         // recursive part
         subdivide(v1, v12, v31, depth-1);
