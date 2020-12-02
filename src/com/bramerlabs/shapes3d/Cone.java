@@ -72,6 +72,7 @@ public class Cone {
 
         // convert the color to a com.bramerlabs.support.Vector3f
         Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
+        c.scale((float)1/255);
 
         // get the triangular faces
         this.faces.addAll(circle.getFaces());

@@ -11,7 +11,7 @@ public class Square {
     private Vector3f center;
 
     // the position of a corner of the square
-    private Vector3f c1;
+    private Vector3f corner;
 
     // the vector normal to the square
     private Vector3f normal;
@@ -33,7 +33,7 @@ public class Square {
      */
     public Square(Vector3f center, Vector3f corner, Vector3f normal, Color color) {
         this.center = center;
-        this.c1 = corner;
+        this.corner = corner;
         this.normal = normal;
         this.color = color;
         generateTriangles();
@@ -44,27 +44,31 @@ public class Square {
      */
     public void generateTriangles() {
         generateVertices();
-        this.faces.add(new Triangle(vertices.get(0), vertices.get(1), vertices.get(2), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
-        this.faces.add(new Triangle(vertices.get(2), vertices.get(3), vertices.get(0), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
+
+        Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
+        c.scale((float)1/255);
+
+        this.faces.add(new Triangle(vertices.get(0), vertices.get(1), vertices.get(2), c));
+        this.faces.add(new Triangle(vertices.get(2), vertices.get(3), vertices.get(0), c));
     }
 
     /**
      * generates a list of vertices - the 4 corners of the square
      */
     private void generateVertices() {
-        float size = Vector3f.distance(c1, center);
-        Vector3f c1p = new Vector3f(c1).subtract(center);
-        Vector3f c2p = Vector3f.cross(c1p, normal);
-        Vector3f c3p = Vector3f.cross(c2p, normal);
-        Vector3f c4p = Vector3f.cross(c3p, normal);
-        vertices.add(c1p.add(center).scale(size));
-        vertices.add(c2p.add(center).scale(size));
-        vertices.add(c3p.add(center).scale(size));
-        vertices.add(c4p.add(center).scale(size));
-        System.out.println(c1p);
-        System.out.println(c2p);
-        System.out.println(c3p);
-        System.out.println(c4p);
+        float size = Vector3f.distance(corner, center);
+        Vector3f c1 = Vector3f.cross(normal, corner);
+        Vector3f c2 = Vector3f.cross(normal, c1);
+        Vector3f c3 = Vector3f.cross(normal, c2);
+        Vector3f c4 = Vector3f.cross(normal, c3);
+        c1.normalize(size).add(center);
+        c2.normalize(size).add(center);
+        c3.normalize(size).add(center);
+        c4.normalize(size).add(center);
+        vertices.add(c1);
+        vertices.add(c2);
+        vertices.add(c3);
+        vertices.add(c4);
     }
 
     public ArrayList<Vector3f> getVertices() {
