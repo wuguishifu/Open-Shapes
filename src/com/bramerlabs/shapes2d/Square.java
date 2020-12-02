@@ -44,18 +44,27 @@ public class Square {
      */
     public void generateTriangles() {
         generateVertices();
-        this.faces.add(new Triangle(vertices.get(0), vertices.get(1), vertices.get(2), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
-        this.faces.add(new Triangle(vertices.get(2), vertices.get(3), vertices.get(0), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
+
+        Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
+        c.scale((float)1/255);
+
+        this.faces.add(new Triangle(vertices.get(0), vertices.get(1), vertices.get(2), c));
+        this.faces.add(new Triangle(vertices.get(2), vertices.get(3), vertices.get(0), c));
     }
 
     /**
      * generates a list of vertices - the 4 corners of the square
      */
     private void generateVertices() {
-        Vector3f c1 = new Vector3f(corner);
-        Vector3f c2 = Vector3f.cross(c1, normal);
-        Vector3f c3 = Vector3f.cross(c2, normal);
-        Vector3f c4 = Vector3f.cross(c3, normal);
+        float size = Vector3f.distance(corner, center);
+        Vector3f c1 = Vector3f.cross(normal, corner);
+        Vector3f c2 = Vector3f.cross(normal, c1);
+        Vector3f c3 = Vector3f.cross(normal, c2);
+        Vector3f c4 = Vector3f.cross(normal, c3);
+        c1.normalize(size).add(center);
+        c2.normalize(size).add(center);
+        c3.normalize(size).add(center);
+        c4.normalize(size).add(center);
         vertices.add(c1);
         vertices.add(c2);
         vertices.add(c3);

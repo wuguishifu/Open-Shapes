@@ -70,12 +70,15 @@ public class Cylinder {
         ArrayList<Vector3f> v1 = c1.getVertices();
         ArrayList<Vector3f> v2 = c2.getVertices();
 
-        for (int i = 1; i < c1.getVertices().size(); i++) {
-            this.faces.add(new Triangle(v1.get(i), v2.get(i), v1.get(i+1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
-            this.faces.add(new Triangle(v2.get(i), v1.get(i+1), v2.get(i+1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
+        Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
+        c.scale((float)1/255);
+
+        for (int i = 1; i < c1.getVertices().size() - 1; i++) {
+            this.faces.add(new Triangle(v1.get(i), v2.get(i), v1.get(i+1), c));
+            this.faces.add(new Triangle(v2.get(i), v1.get(i+1), v2.get(i+1), c));
         }
-        this.faces.add(new Triangle(v1.get(smoothness), v2.get(smoothness), v1.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
-        this.faces.add(new Triangle(v2.get(smoothness), v1.get(1), v2.get(1), new Vector3f(color.getRed(), color.getGreen(), color.getBlue())));
+        this.faces.add(new Triangle(v1.get(smoothness), v2.get(smoothness), v1.get(1), c));
+        this.faces.add(new Triangle(v2.get(smoothness), v1.get(1), v2.get(1), c));
     }
 
     /**

@@ -124,6 +124,19 @@ public class Vector3f {
     }
 
     /**
+     * gets the distance between two vectors
+     * @param v - vector 1
+     * @param u - vector 2
+     * @return - the distance between the two
+     */
+    public static float distance(Vector3f v, Vector3f u) {
+        float x = v.x - u.x;
+        float y = v.y - u.y;
+        float z = v.z - u.z;
+        return (float)Math.sqrt(x * x + y * y + z * z);
+    }
+
+    /**
      * normalizes a vector to a length of 1
      * @return - this vector
      */
@@ -170,6 +183,16 @@ public class Vector3f {
      */
     public Vector3f invertZ() {
         this.z = -this.z;
+        return this;
+    }
+
+    /**
+     * inverts the vector
+     */
+    public Vector3f invert() {
+        x = -x;
+        y = -y;
+        z = -z;
         return this;
     }
 

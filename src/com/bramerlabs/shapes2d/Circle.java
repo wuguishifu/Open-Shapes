@@ -71,6 +71,7 @@ public class Circle {
 
         // convert the color to a bramerlabs Vector3f
         Vector3f c = new Vector3f(color.getRed(), color.getGreen(), color.getBlue());
+        c.scale((float)1/255);
 
         // create numTriangles-1 bramerlabs triangles using consecutive radial vertices
         for (int i = 1; i < numTriangles; i++) {

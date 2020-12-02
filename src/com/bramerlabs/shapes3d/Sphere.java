@@ -120,9 +120,9 @@ public class Sphere {
         if (depth == 0) {
 
             // create new vectors to modify
-            Vector3f v1p = new Vector3f(v1);
-            Vector3f v2p = new Vector3f(v2);
-            Vector3f v3p = new Vector3f(v3);
+            Vector3f v1p = new Vector3f(v1).add(position);
+            Vector3f v2p = new Vector3f(v2).add(position);
+            Vector3f v3p = new Vector3f(v3).add(position);
 
             faces.add(new Triangle(v1p, v2p, v3p, new Vector3f(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f)));
 
