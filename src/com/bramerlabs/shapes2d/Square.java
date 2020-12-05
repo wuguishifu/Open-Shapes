@@ -39,6 +39,10 @@ public class Square {
         generateTriangles();
     }
 
+    public Square(Vector3f c1, Vector3f c2, Vector3f c3) {
+
+    }
+
     /**
      * generates a list of triangles making the mesh of this square
      */
