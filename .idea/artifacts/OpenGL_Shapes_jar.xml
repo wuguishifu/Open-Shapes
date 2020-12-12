@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OpenGL Shapes:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OpenGL_Shapes_jar</output-path>
+    <root id="archive" name="OpenGL Shapes.jar">
+      <element id="module-output" name="OpenGL Shapes" />
+    </root>
+  </artifact>
+</component>
